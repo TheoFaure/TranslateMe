@@ -1,0 +1,36 @@
+.loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid rgba(71, 71, 71, 0.7); /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    display: none
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.emotion {
+    display: none
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.error{
+    color: #ff001a
+}
+
+.success{
+    color: #05b500
+}
+
+.running{
+    color: #ffde00
+}

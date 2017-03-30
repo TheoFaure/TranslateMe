@@ -1,0 +1,80 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static '/proto1/css/style.css' %}">
+<script type="text/javascript" src="{% static '/proto1/js/jquery-3.2.0.js' %}"></script>
+<script type="text/javascript" src="{% static '/proto1/js/myscript.js' %}"></script>
+<script type="text/javascript" src="{% static '/proto1/js/jsonpath-0.8.0.js' %}"></script>
+<script type="text/javascript" src="{% static '/proto1/js/plotly-latest.min.js' %}"></script>
+
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<div class="container">
+    <div class="row text-center">
+        <h1>Translate me!</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div id="message"></div>
+            <input id="myvideo" type="file" accept="video/*" />
+
+{#            <form>#}
+{#                <select name="nom" size="1">#}
+{#                    {for }#}
+{#                    <option>lundi#}
+{#                    <option>mardi#}
+{#                    <option>mercredi#}
+{#                    <option>jeudi#}
+{#                    <option>vendredi#}
+{#                </select>#}
+{#            </form>#}
+
+            <video controls autoplay height="250px" width="250px" ></video>
+            <div id="url-results" hidden></div>
+            <div id="emo-video-status"></div>
+            <div id="emo-video-progress"></div>
+            <div id="emo-video" style="width:90%;height:250px;display:none"></div>
+            <button id="show-video-emo" onclick="getVideoEmo()" class="btn btn-default">Get emotions in video</button>
+        </div>
+        <div class="col-sm-1 vcenter">
+            <div class="loader"></div>
+        </div>
+        <div class="col-sm-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Text</th>
+                        <th title="Sentiment value between 0 and 1. 0 is very negative, 1 is very positive.">Sentiment value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="active">
+                        <th scope="row" title="Text recognized in the video with IBM Speech-To-Text API">Original</th>
+                        <td id="original-text"></td>
+                        <td><span id="emo-original-text" class="emotion"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" title="The original text translated using Microsoft's translation API">Microsoft translation</th>
+                        <td id="microsoft-text"></td>
+                        <td><span id="emo-microsoft-text" class="emotion"></span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" title="The original text translated using Yandex's translation API">Yandex translation</th>
+                        <td id="yandex-text"></td>
+                        <td><span id="emo-yandex-text" class="emotion"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button id="show-emo" onclick="showClass()" class="btn btn-primary">Show the emotions!</button>
+            </div>
+        </div>
+    </div>
+</div>
