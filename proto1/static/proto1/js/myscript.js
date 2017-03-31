@@ -36,6 +36,39 @@
                 'video': $("#myvideo").val()
             },
             success: function(response) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        })
+    };
+
+    window.onload=function(){
+        var inputNode = document.querySelector('#myvideo');
+        if(inputNode) {
+            inputNode.addEventListener('change', playSelectedFile, false);
+        }
+    }
+})();
+
+window.onload=function() {
+    $('#select_video').on('change', function() {
+        $('.loader').toggle();
+        var file_name = this.value;
+        var URL = window.URL || window.webkitURL;
+        var videoNode = document.querySelector('video');
+
+        videoNode.src = 'http://127.0.0.1:8001/static/proto1/video/' + file_name;
+
+        // Query to get the video emotions
+        $.ajax({
+            type:"POST",
+            url:"/run_emotion_recog/",
+            data: {
+                'video_name': file_name
+            },
+            success: function(response) {
                 $('.loader').toggle();
                 var context = JSON.parse(response);
                 $('#original-text').html(context['original-text']);
@@ -54,16 +87,39 @@
                 alert(xhr.status);
                 alert(thrownError);
             }
-        })
-    };
+        });
+    });
 
-    window.onload=function(){
-        var inputNode = document.querySelector('#myvideo');
-        if(inputNode) {
-            inputNode.addEventListener('change', playSelectedFile, false);
-        }
-    }
-})();
+    $('#import_video').on('change', function() {
+        var file = this.files[0];
+        $.ajax({
+            type:"POST",
+            url:"/import_video/",
+            file: file,
+            data: file,
+            // data: {
+            //     'video': file,
+            //     'type': file.type
+            // },
+            success: function(response) {
+                var context = JSON.parse(response);
+
+                $('#select_video').empty();
+
+                $each(context["list_video"], function(value) {
+                    new Element('option')
+                        .set('text', value)
+                        .inject($('#select_video'));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    });
+
+};
 
 
 function showClass(){

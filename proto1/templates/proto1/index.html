@@ -21,26 +21,30 @@
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <div id="message"></div>
-            <input id="myvideo" type="file" accept="video/*" />
 
-{#            <form>#}
-{#                <select name="nom" size="1">#}
-{#                    {for }#}
-{#                    <option>lundi#}
-{#                    <option>mardi#}
-{#                    <option>mercredi#}
-{#                    <option>jeudi#}
-{#                    <option>vendredi#}
-{#                </select>#}
-{#            </form>#}
+            <div class="row">
+                <form>
+                    <label>Select a video</label>
+                    <select id="select_video" name="Select a video available on the server" size="1" class="form-control">
+                        <option disabled selected value> -- Select a video -- </option>
+                        {% for vid in video_list %}
+                            <option value="{{ vid }}">{{ vid }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+{#                <label>Or import one</label>#}
+{#                <input id="import_video" type="file" accept="video/*" />#}
+            </div>
 
-            <video controls autoplay height="250px" width="250px" ></video>
-            <div id="url-results" hidden></div>
-            <div id="emo-video-status"></div>
-            <div id="emo-video-progress"></div>
-            <div id="emo-video" style="width:90%;height:250px;display:none"></div>
-            <button id="show-video-emo" onclick="getVideoEmo()" class="btn btn-default">Get emotions in video</button>
+            <div class="row top-buffer">
+                <video controls autoplay height="250px" width="250px" class="center-block"></video>
+                <div id="url-results" hidden></div>
+                <div id="emo-video-status"></div>
+                <div id="emo-video-progress"></div>
+                <div id="emo-video" style="width:90%;height:250px;display:none"></div>
+                <button id="show-video-emo" onclick="getVideoEmo()" class="btn btn-default center-block">Get emotions in video</button>
+            </div>
+
         </div>
         <div class="col-sm-1 vcenter">
             <div class="loader"></div>

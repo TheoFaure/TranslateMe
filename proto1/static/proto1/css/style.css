@@ -17,11 +17,13 @@
     display: none
 }
 
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+.vcenter{
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
 }
+
+.top-buffer { margin-top:20px; }
 
 .error{
     color: #ff001a
