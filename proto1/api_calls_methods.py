@@ -9,18 +9,18 @@ from base64 import b64encode
 
 import unicodedata
 
-emo_api_key = open('proto1/api_keys/microsoft_emo', 'r').readline()
+emo_api_key = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/microsoft_emo', 'r').readline()
 
-speech_api_key = open('proto1/api_keys/microsoft_speech', 'r').readline()
-text_analytics_api_key = open('proto1/api_keys/microsoft_text_analytics', 'r').readline()
-translation_api_key = open('proto1/api_keys/microsoft_translation', 'r').readline()
+speech_api_key = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/microsoft_speech', 'r').readline()
+text_analytics_api_key = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/microsoft_text_analytics', 'r').readline()
+translation_api_key = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/microsoft_translation', 'r').readline()
 token_speech_to_text = ''
 token_translation = ''
 
-yandex_api_key = open('proto1/api_keys/yandex_translation', 'r').readline()
+yandex_api_key = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/yandex_translation', 'r').readline()
 
-username_IBM = open('proto1/api_keys/ibm_user', 'r').readline()
-password_IBM = open('proto1/api_keys/ibm_password', 'r').readline()
+username_IBM = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/ibm_user', 'r').readline()
+password_IBM = open('/home/theo/SentimentalTranslator_Proto1/proto1/api_keys/ibm_password', 'r').readline()
 userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
 
 

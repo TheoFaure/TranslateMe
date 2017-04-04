@@ -25,7 +25,7 @@ SECRET_KEY = 'ilqwv+wej#y=(x#%$sxaj&%5*j2052ne(9cr*!l4j7=xdqh#^1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['translateme.westeurope.cloudapp.azure.com']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'mod_wsgi.server',
 ]
 
 MIDDLEWARE = [
@@ -124,4 +125,4 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = "static/"
+STATIC_ROOT = "/var/www/SentimentalTranslator_Proto1/static/"
