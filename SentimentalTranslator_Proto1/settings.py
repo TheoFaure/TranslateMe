@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ilqwv+wej#y=(x#%$sxaj&%5*j2052ne(9cr*!l4j7=xdqh#^1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['translateme.westeurope.cloudapp.azure.com']
 
