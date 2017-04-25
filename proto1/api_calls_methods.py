@@ -286,7 +286,7 @@ if __name__ == '__main__' and len(sys.argv) > 1:
         api_response = send_video_emo_api(video_path)
         audio_path = create_audio_file(video_path)
         print("Audio file created at: %s" % audio_path)
-        text_video = speech2text_ibm(audio_path)
+        text_video = speech_to_text(audio_path)
         print("Speech-to-text finnished. The video says: %s" % text_video)
         sentiment = get_sentiment_text(text_video, "en")
         print("The sentiment captured in this text is %s" % sentiment)
