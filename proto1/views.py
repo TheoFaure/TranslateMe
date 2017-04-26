@@ -15,7 +15,7 @@ from os.path import isfile, join
 @csrf_exempt
 def run_emotion_recog(request):
     message = request.read()
-    video_path = "proto1/static/proto1/video/" + message.decode('UTF-8').split("=")[1] #str(message.decode('UTF-8').split("%5C",2)[2])
+    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/" + message.decode('UTF-8').split("=")[1] #str(message.decode('UTF-8').split("%5C",2)[2])
 
     api_response = send_video_emo_api(video_path)
 
@@ -70,7 +70,7 @@ def get_video_results(request):
 @csrf_exempt
 def get_video(request):
     video_name = request.read().decode('UTF-8').split("=")[1]
-    video_path = "proto1/static/proto1/video/%s" % video_name
+    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/%s" % video_name
 
     with open(video_path, mode='rb') as file:
         file_content = file.read()
@@ -85,8 +85,8 @@ def import_video(request):
     open(video_path, mode='rb')
 
 def index(request):
-    video_path = "proto1/static/proto1/video/"
-    list_files = [f for f in listdir(video_path) if isfile(join(video_path, f))]
+    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/"
+    list_files = [f for f in listdir(video_path) if re.match(r'[0-9a-z]*.mp4$',f)]
 
     context = {
         "video_list": list_files

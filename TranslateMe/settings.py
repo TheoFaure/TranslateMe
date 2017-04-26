@@ -125,6 +125,6 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = "/var/www/TranslateMe/static/"
+STATIC_ROOT = "/var/www/TranslateMe/static/"
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
