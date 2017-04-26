@@ -25,3 +25,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'TranslateMe.settings'
 activate_env=os.path.expanduser(os.path.join(settings.BASE_DIR, 'myvenv/bin/activate_this.py'))
 exec(compile(open(activate_env, "rb").read(), activate_env, 'exec'), dict(__file__=activate_env))
 application = get_wsgi_application()
+
+from whitenoise.django import DjangoWhiteNoise
+application = DjangoWhiteNoise(application)
+
