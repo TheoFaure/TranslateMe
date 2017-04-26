@@ -1,56 +1,56 @@
-(function localFileVideoPlayer() {
-    'use strict';
-
-    var URL = window.URL || window.webkitURL;
-
-    var displayMessage = function (message, isError) {
-        var element = document.querySelector('#message');
-        element.innerHTML = message;
-        element.className = isError ? 'error' : 'success'
-    };
-
-    var playSelectedFile = function (event) {
-        $('.loader').toggle();
-
-        var file = this.files[0];
-        var type = file.type;
-        var videoNode = document.querySelector('video');
-        var canPlay = videoNode.canPlayType(type);
-
-        if (canPlay === '') canPlay = 'no';
-
-        var message = 'Can play type "' + type + '": ' + canPlay;
-        var isError = canPlay === 'no';
-        displayMessage(message, isError);
-
-        if (isError) {
-            return
-        }
-
-        videoNode.src = URL.createObjectURL(file);
-
-        $.ajax({
-            type:"POST",
-            url:"/run_emotion_recog/",
-            data: {
-                'video': $("#myvideo").val()
-            },
-            success: function(response) {
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        })
-    };
-
-    window.onload=function(){
-        var inputNode = document.querySelector('#myvideo');
-        if(inputNode) {
-            inputNode.addEventListener('change', playSelectedFile, false);
-        }
-    }
-})();
+// (function localFileVideoPlayer() {
+//     'use strict';
+//
+//     var URL = window.URL || window.webkitURL;
+//
+//     var displayMessage = function (message, isError) {
+//         var element = document.querySelector('#message');
+//         element.innerHTML = message;
+//         element.className = isError ? 'error' : 'success'
+//     };
+//
+//     var playSelectedFile = function (event) {
+//         $('.loader').toggle();
+//
+//         var file = this.files[0];
+//         var type = file.type;
+//         var videoNode = document.querySelector('video');
+//         var canPlay = videoNode.canPlayType(type);
+//
+//         if (canPlay === '') canPlay = 'no';
+//
+//         var message = 'Can play type "' + type + '": ' + canPlay;
+//         var isError = canPlay === 'no';
+//         displayMessage(message, isError);
+//
+//         if (isError) {
+//             return
+//         }
+//
+//         videoNode.src = URL.createObjectURL(file);
+//
+//         $.ajax({
+//             type:"POST",
+//             url:"/run_emotion_recog/",
+//             data: {
+//                 'video': $("#myvideo").val()
+//             },
+//             success: function(response) {
+//             },
+//             error: function (xhr, ajaxOptions, thrownError) {
+//                 alert(xhr.status);
+//                 alert(thrownError);
+//             }
+//         })
+//     };
+//
+//     window.onload=function(){
+//         var inputNode = document.querySelector('#myvideo');
+//         if(inputNode) {
+//             inputNode.addEventListener('change', playSelectedFile, false);
+//         }
+//     }
+// })();
 
 window.onload=function() {
     $('#select_video').on('change', function() {
@@ -58,8 +58,8 @@ window.onload=function() {
         var file_name = this.value;
         var URL = window.URL || window.webkitURL;
         var videoNode = document.querySelector('video');
-
-        videoNode.src = 'http://127.0.0.1:8001/static/proto1/video/' + file_name;
+        $('#error').html("")
+        videoNode.src = 'http://translateme.westeurope.cloudapp.azure.com/static/proto1/video/' + file_name;
 
         // Query to get the video emotions
         $.ajax({
@@ -82,42 +82,45 @@ window.onload=function() {
                 $('#emo-yandex-text').html(context['emo-yandex-text']);
                 // $('#api-response').html(context['api-response']);
                 $('#url-results').html(context['url-results']);
+		$('#error').html("");
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                $('.loader').toggle();
+                $('#error').html("Error " + xhr.status + " occured. The API is overloaded, reload the page in a few seconds and try again.");
+		//alert(xhr.status);
+                //alert(thrownError);
             }
         });
     });
 
-    $('#import_video').on('change', function() {
-        var file = this.files[0];
-        $.ajax({
-            type:"POST",
-            url:"/import_video/",
-            file: file,
-            data: file,
-            // data: {
-            //     'video': file,
-            //     'type': file.type
-            // },
-            success: function(response) {
-                var context = JSON.parse(response);
-
-                $('#select_video').empty();
-
-                $each(context["list_video"], function(value) {
-                    new Element('option')
-                        .set('text', value)
-                        .inject($('#select_video'));
-                });
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
-    });
+    // $('#import_video').on('change', function() {
+    //     var file = this.files[0];
+    //     $.ajax({
+    //         type:"POST",
+    //         url:"/import_video/",
+    //         file: file,
+    //         data: file,
+    //         // data: {
+    //         //     'video': file,
+    //         //     'type': file.type
+    //         // },
+    //         success: function(response) {
+    //             var context = JSON.parse(response);
+    //
+    //             $('#select_video').empty();
+    //
+    //             $each(context["list_video"], function(value) {
+    //                 new Element('option')
+    //                     .set('text', value)
+    //                     .inject($('#select_video'));
+    //             });
+    //         },
+    //         error: function (xhr, ajaxOptions, thrownError) {
+    //             alert(xhr.status);
+    //             alert(thrownError);
+    //         }
+    //     });
+    // });
 
 };
 
@@ -143,12 +146,11 @@ function getVideoEmo(){
             var status = response_json['status'];
             $('#emo-video-progress').html("Progress: " + response_json['progress'] + "%");
             if (status == "Running") {
-                $('#emo-video-status').addClass("running");
+                $('#emo-video-status').attr('class', 'running');
             } else if (status == "Succeeded"){
                 $('#emo-video').toggle();
                 $('#emo-video-status').html("Success");
-                $('#emo-video-status').addClass("success");
-                $('#emo-video-status').removeClass("running");
+                $('#emo-video-status').toggleClass('running', 'success');
                 var scores = jsonPath(response_json, "$..windowMeanScores");
 
                 var emo_graph = document.getElementById('emo-video');
@@ -175,8 +177,10 @@ function getVideoEmo(){
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+		$('#emo-video-status').html("Error " + xhr.status);
+		$('#emo-video-status').attr('class', 'error');
+//            alert(xhr.status);
+//            alert(thrownError);
         }
     });
 }

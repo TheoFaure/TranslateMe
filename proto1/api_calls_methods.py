@@ -8,19 +8,23 @@ from xml.etree import ElementTree
 from base64 import b64encode
 
 import unicodedata
+from django.conf import settings
+import os
 
-emo_api_key = open('proto1/api_keys/microsoft_emo', 'r').readline()
 
-speech_api_key = open('proto1/api_keys/microsoft_speech', 'r').readline()
-text_analytics_api_key = open('proto1/api_keys/microsoft_text_analytics', 'r').readline()
-translation_api_key = open('proto1/api_keys/microsoft_translation', 'r').readline()
+emo_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_emo'), 'r').readline()
+
+speech_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_speech'), 'r').readline()
+text_analytics_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_text_analytics'), 'r').readline()
+translation_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_translation'), 'r').readline()
 token_speech_to_text = ''
 token_translation = ''
 
-yandex_api_key = open('proto1/api_keys/yandex_translation', 'r').readline()
+yandex_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/yandex_translation'), 'r').readline()
 
-username_IBM = open('proto1/api_keys/ibm_user', 'r').readline()
-password_IBM = open('proto1/api_keys/ibm_password', 'r').readline()
+username_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_user'), 'r').readline()
+password_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_password'), 'r').readline()
+
 userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
 
 
@@ -137,7 +141,7 @@ def speech_to_text(audio_path):
         print(token_speech_to_text)
         # regenerate token every 10 minutes!
         text = get_speech(audio_path)
-        return text
+        return text.replace("bing", "").strip()
     except Exception as e:
         raise e
 
@@ -286,7 +290,7 @@ if __name__ == '__main__' and len(sys.argv) > 1:
         api_response = send_video_emo_api(video_path)
         audio_path = create_audio_file(video_path)
         print("Audio file created at: %s" % audio_path)
-        text_video = speech2text_ibm(audio_path)
+        text_video = speech_to_text(audio_path)
         print("Speech-to-text finnished. The video says: %s" % text_video)
         sentiment = get_sentiment_text(text_video, "en")
         print("The sentiment captured in this text is %s" % sentiment)
