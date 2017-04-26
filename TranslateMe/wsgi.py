@@ -10,17 +10,18 @@ import os
 import sys
 import site
 from django.core.wsgi import get_wsgi_application
+from django.conf import settings
 
 # Add the site-packages of the chosen virtualenv to work with
-site.addsitedir('/home/theo/TranslateMe/myvenv/lib/python3.5/site-packages')
+site.addsitedir(os.path.join(settings.BASE_DIR, '/myvenv/lib/python3.5/site-packages'))
 
 # Add the app's directory to the PYTHONPATH
-sys.path.append('/home/theo/TranslateMe')
-sys.path.append('/home/theo/TranslateMe/TranslateMe')
+sys.path.append(settings.BASE_DIR)
+sys.path.append(os.path.join(settings.BASE_DIR, '/TranslateMe'))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'TranslateMe.settings'
 
 # Activate your virtual env
-activate_env=os.path.expanduser("/home/theo/TranslateMe/myvenv/bin/activate_this.py")
+activate_env=os.path.expanduser(os.path.join(settings.BASE_DIR, 'myvenv/bin/activate_this.py'))
 exec(compile(open(activate_env, "rb").read(), activate_env, 'exec'), dict(__file__=activate_env))
 application = get_wsgi_application()

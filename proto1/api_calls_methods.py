@@ -141,7 +141,7 @@ def speech_to_text(audio_path):
         print(token_speech_to_text)
         # regenerate token every 10 minutes!
         text = get_speech(audio_path)
-        return text
+        return text.replace("bing", "").strip()
     except Exception as e:
         raise e
 

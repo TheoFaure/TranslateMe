@@ -10,18 +10,20 @@ import json
 import urllib.parse
 from os import listdir
 from os.path import isfile, join
+from django.conf import settings
 
 
 @csrf_exempt
 def run_emotion_recog(request):
     message = request.read()
-    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/" + message.decode('UTF-8').split("=")[1] #str(message.decode('UTF-8').split("%5C",2)[2])
+    video_path = os.path.join(settings.BASE_DIR, 'proto1/static/proto1/video/', message.decode('UTF-8').split("=")[1]) #str(message.decode('UTF-8').split("%5C",2)[2])
 
     api_response = send_video_emo_api(video_path)
 
-    audio_path = create_audio_file(video_path)
+    # audio_path = create_audio_file(video_path)
+    audio_path = video_path + '.wav'
     print("1")
-    original_text = speech2text_ibm(audio_path)
+    original_text = speech_to_text(audio_path)
     print("2")
     emo_original_text = get_sentiment_text(original_text, "en")
     print("3")
@@ -37,9 +39,9 @@ def run_emotion_recog(request):
         "".join((c for c in unicodedata.normalize('NFD', yandex_text) if unicodedata.category(c) != 'Mn')), "fr")
     print("7")
     # delete the audio file
-    command = "rm {video_path}.wav".format(video_path=video_path)
-    subprocess.call(command, shell=True)
-    print("8")
+    # command = "rm {video_path}.wav".format(video_path=video_path)
+    # subprocess.call(command, shell=True)
+    # print("8")
     # emo_video = "Emo_video processing..."#get_video_emo_response(api_response)
 
     context = {
@@ -70,7 +72,7 @@ def get_video_results(request):
 @csrf_exempt
 def get_video(request):
     video_name = request.read().decode('UTF-8').split("=")[1]
-    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/%s" % video_name
+    video_path = os.path.join(settings.BASE_DIR, 'proto1/static/proto1/video/%s' % video_name)
 
     with open(video_path, mode='rb') as file:
         file_content = file.read()
@@ -85,7 +87,7 @@ def import_video(request):
     open(video_path, mode='rb')
 
 def index(request):
-    video_path = "/home/theo/SentimentalTranslator_Proto1/proto1/static/proto1/video/"
+    video_path = os.path.join(settings.BASE_DIR, 'proto1/static/proto1/video/')
     list_files = [f for f in listdir(video_path) if re.match(r'[0-9a-z]*.mp4$',f)]
 
     context = {
