@@ -30,9 +30,10 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 # application = DjangoWhiteNoise(application)
 #
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TranslateMe.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gettingstarted.settings")
 
-# This application object is used by the development server
-# as well as any WSGI server configured to use this file.
-import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
