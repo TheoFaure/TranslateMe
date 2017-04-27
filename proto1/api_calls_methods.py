@@ -47,7 +47,8 @@ userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")
 
 
 def send_request(method, host, url, body=None, params=None, headers=None):
-    logger.error("{}/n{}/n{}n/{}/n{}/n{}/n".format(method, host, url, body, params, headers))
+    logger.error(host)
+    logger.error(url)
     try:
         conn = http.client.HTTPSConnection(host)
         if params is None:
