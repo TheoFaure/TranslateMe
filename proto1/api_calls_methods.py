@@ -27,6 +27,21 @@ import os
 #
 # userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
 
+emo_api_key = os.environ.get('MICROSOFT_EMO')
+
+speech_api_key = os.environ.get('MICROSOFT_SPEECH')
+text_analytics_api_key = os.environ.get('MICROSOFT_TEXT_ANALYTICS')
+translation_api_key = os.environ.get('MICROSOFT_TRANSLATION')
+token_speech_to_text = ''
+token_translation = ''
+
+yandex_api_key = os.environ.get('YANDEX_TRANSLATION')
+
+username_IBM = os.environ.get('IBM_USER')
+password_IBM = os.environ.get('IBM_PASSWORD')
+
+userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
+
 
 def send_request(method, host, url, body=None, params=None, headers=None):
     try:
