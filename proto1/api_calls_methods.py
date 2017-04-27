@@ -12,20 +12,20 @@ from django.conf import settings
 import os
 
 
-emo_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_emo'), 'r').readline()
-
-speech_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_speech'), 'r').readline()
-text_analytics_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_text_analytics'), 'r').readline()
-translation_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_translation'), 'r').readline()
-token_speech_to_text = ''
-token_translation = ''
-
-yandex_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/yandex_translation'), 'r').readline()
-
-username_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_user'), 'r').readline()
-password_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_password'), 'r').readline()
-
-userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
+# emo_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_emo'), 'r').readline()
+#
+# speech_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_speech'), 'r').readline()
+# text_analytics_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_text_analytics'), 'r').readline()
+# translation_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_translation'), 'r').readline()
+# token_speech_to_text = ''
+# token_translation = ''
+#
+# yandex_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/yandex_translation'), 'r').readline()
+#
+# username_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_user'), 'r').readline()
+# password_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_password'), 'r').readline()
+#
+# userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
 
 
 def send_request(method, host, url, body=None, params=None, headers=None):
