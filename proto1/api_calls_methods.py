@@ -95,10 +95,6 @@ def send_video_emo_api(video_path):
             print("Url to get the results : curl \"{results_url}\" -H \"Ocp-Apim-Subscription-Key:{emo_api_key}\"".format(results_url=results_url, emo_api_key=emo_api_key))
             return results_url
         except Exception as e:
-            print("Error. HTML Response: ")
-            print(data)
-            print(status)
-            print(headers)
             raise e
 
 
@@ -127,7 +123,6 @@ def get_video_emo_response(results_url):
             return data
         timeout += 1
         print("Getting the results... Attempted {timeout} times.".format(timeout=timeout))
-        print(data)
 
     return "Timeout!"
 
