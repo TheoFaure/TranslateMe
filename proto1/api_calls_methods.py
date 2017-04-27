@@ -10,6 +10,7 @@ from base64 import b64encode
 import unicodedata
 from django.conf import settings
 import os
+import logging
 
 
 # emo_api_key = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/microsoft_emo'), 'r').readline()
@@ -26,6 +27,8 @@ import os
 # password_IBM = open(os.path.join(settings.BASE_DIR, 'proto1/api_keys/ibm_password'), 'r').readline()
 #
 # userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")).decode("ascii")
+logger = logging.getLogger(__name__)
+
 
 emo_api_key = os.environ.get('MICROSOFT_EMO')
 
@@ -44,6 +47,7 @@ userAndPass = b64encode(("%s:%s" % (username_IBM, password_IBM)).encode("ascii")
 
 
 def send_request(method, host, url, body=None, params=None, headers=None):
+    logger.error("{}/n{}/n{}n/{}/n{}/n{}/n".format(method, host, url, body, params, headers))
     try:
         conn = http.client.HTTPSConnection(host)
         if params is None:
