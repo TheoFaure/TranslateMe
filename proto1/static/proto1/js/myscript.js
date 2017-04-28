@@ -59,7 +59,7 @@ window.onload=function() {
         var URL = window.URL || window.webkitURL;
         var videoNode = document.querySelector('video');
         $('#error').html("")
-        videoNode.src = 'http://translateme.westeurope.cloudapp.azure.com/static/proto1/video/' + file_name;
+        videoNode.src = 'https://obscure-ravine-13349.herokuapp.com/static/proto1/video/' + file_name;
 
         // Query to get the video emotions
         $.ajax({
